@@ -17,11 +17,16 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
     fclose($handle);
 }
 
-// Trier par fréquence décroissante (optionnel, mais recommandé pour un meilleur affichage)
+// Trier par fréquence décroissante
 arsort($cityVisits);
 
-// Débogage : afficher les données pour vérifier
-// var_dump($cityVisits);
+// Limiter aux 10 premières villes et regrouper les autres
+$topCities = array_slice($cityVisits, 0, 10, true); // Prendre les 10 premières
+$otherVisits = array_sum(array_slice($cityVisits, 10)); // Somme des visites des autres villes
+
+if ($otherVisits > 0) {
+    $topCities['Autres'] = $otherVisits; // Ajouter une catégorie "Autres"
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +79,7 @@ arsort($cityVisits);
             <li> <p><a href="tech.php">Page tech</a></p></li>
             <li> <p><a href="meteo.php">Meteo</a></p></li>
             <li> <p><a href="statistiques.php">Statistiques</a></p></li>
-            <li>  <p><a href="nous.php">à propos de nous</a></p></li>
+            <li> <p><a href="nous.php">à propos de nous</a></p></li>
         </ul>
     </nav>
 </header>
@@ -87,10 +92,10 @@ arsort($cityVisits);
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: <?= json_encode(array_keys($cityVisits)) ?>,
+                labels: <?= json_encode(array_keys($topCities)) ?>,
                 datasets: [{
                     label: 'Nombre de visites',
-                    data: <?= json_encode(array_values($cityVisits)) ?>,
+                    data: <?= json_encode(array_values($topCities)) ?>,
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
@@ -101,9 +106,9 @@ arsort($cityVisits);
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 1, // Incréments de 1 (0, 1, 2, etc.)
+                            stepSize: 1,
                             callback: function(value) {
-                                return Number.isInteger(value) ? value : null; // Afficher uniquement les entiers
+                                return Number.isInteger(value) ? value : null;
                             }
                         },
                         title: {
