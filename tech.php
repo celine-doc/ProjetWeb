@@ -137,7 +137,7 @@ $longitude4 = (string)$xml4->longitude;
         <figcaption style="font-style: italic; margin-top: 10px;"><?php echo htmlspecialchars($data['title']); ?></figcaption>
     
         <?php else: ?>
-        <!-- Image par défaut pour media_type: other -->
+        <!-- Image par défaut -->
         <img src="images/nasa.jpg" alt="Image par défaut" style="max-width: 500px;">
         <figcaption style="font-style: italic; margin-top: 10px;">Contenu indisponible – image par défaut affichée.</figcaption>
         <?php endif; ?>
