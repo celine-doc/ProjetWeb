@@ -411,6 +411,7 @@ $texteBouton = $afficherDetails ? "Cacher les détails" : "Voir les détails";
     </div>
   </div>
 </footer>
+
 <script>
 function setTheme(mode) {
     const light = document.getElementById('light-theme');
@@ -444,36 +445,6 @@ window.addEventListener('DOMContentLoaded', () => {
         setTheme('light'); // Default to light
     }
 });
-</script>
-
-<div id="cookie-modal">
-  <div id="cookie-box">
-    <p><strong>🍪 Ce site utilise des cookies</strong><br>Nous utilisons des cookies pour améliorer votre expérience. Acceptez-vous ?</p>
-    <div style="margin-top: 20px;">
-      <button onclick="acceptCookies()" style="background-color:#4CAF50; color:white;">Accepter</button>
-      <button onclick="declineCookies()" style="background-color:#f44336; color:white;">Refuser</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      const modal = document.getElementById('cookie-modal');
-      modal.style.display = 'flex'; // Show the modal
-    }
-  });
-
-  function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('cookie-modal').style.display = 'none';
-  }
-
-  function declineCookies() {
-    localStorage.setItem('cookieConsent', 'declined');
-    document.getElementById('cookie-modal').style.display = 'none';
-  }
 </script>
 
 </body>
